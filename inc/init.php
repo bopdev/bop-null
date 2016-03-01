@@ -58,7 +58,7 @@ add_action( 'switch_theme', function(){
 	
 	define( 'BOP_THEME_DEACTIVATING', true );
 	
-	require_once( get_template_directory() . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'deactivate.php' );
+	require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'deactivate.php' );
 } );
 
 

@@ -1,4 +1,7 @@
 <?php 
+/**
+ * The customisable file (like functions.php in other themes). Below are simply suggestions.
+ */
 
 add_action( 'after_setup_theme', function(){
 	
@@ -160,30 +163,6 @@ add_action( 'wp_enqueue_scripts', function(){
 } );
 
 
-if( ! function_exists( 'bopdev' ) ):
-/**
- * Checks if WordPress is in debug mode or not. Useful for turning on/off minification, caching, etc.
- *
- * @since Bop Null 0.1.0
- *
- * @param mixed $is Output if is in debug environment.
- * @param mixed $isnt Output if isn't in debug environment.
- * @return bool/mixed If no params, the bool; else, the appropriate $is/$isnt value.
- */
-function bopdev( $is = null, $isnt = false ){
-	
-	$dbg = defined( 'WP_DEBUG' ) && WP_DEBUG;
-	
-	if( is_null( $is ) ){
-		return $dbg;
-	}
-	
-	return $dbg ? $is : $isnt;
-	
-}
-endif;
-
-
 /**
  * Add custom image sizes attribute to enhance responsive image functionality
  * for post thumbnails. This should be tailored to design
@@ -213,6 +192,3 @@ add_filter( 'wp_get_attachment_image_attributes', function( $attr, $attachment, 
 	}
 	return $attr;
 }, 10 , 3 );
-
-
-require_once( get_template_directory() . '/bop-nav-walker.php' );

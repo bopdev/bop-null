@@ -18,6 +18,12 @@
 	</head>
 	<body <?php body_class(); ?>>
 		<header>
-			
+			<?php wp_nav_menu( array(
+				'walker'=>new Bop_Nav_Walker,
+				'theme_location'=>'primary',
+				'container'=>'nav',
+				'container_class'=>'navbar',
+				'menu_class'=>'nav nav-tabs'
+			) ) ?>
 		</header>
 		<div id="content">
