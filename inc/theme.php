@@ -138,15 +138,15 @@ add_action( 'wp_enqueue_scripts', function(){
 	
 	
 	$csses = array(
-		'bootstrap'=>array(
+		/*'bootstrap'=>array(
 			'src'=>'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css',
 			'dep'=>array(),
 			'version'=>'4.0.0-alpha.2',
 			'media'=>'all'
-		),
+		),*/
 		'bop'=>array(
 			'src'=>get_template_directory_uri() . '/css/bop.css',
-			'dep'=>array( 'bootstrap' ),
+			'dep'=>array(),
 			'version'=>'0.1.0',
 			'media'=>'all'
 		)
