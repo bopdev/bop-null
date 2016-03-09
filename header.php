@@ -18,7 +18,7 @@
 	</head>
 	<body <?php body_class(); ?>>
 		<header>
-			<?php wp_nav_menu( array(
+			<?php has_nav_menu( 'primary' ) && wp_nav_menu( array(
 				'walker'=>new Bop_Nav_Walker,
 				'theme_location'=>'primary',
 				'container'=>'nav',
