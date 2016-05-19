@@ -20,7 +20,7 @@ add_action( 'after_switch_theme', function(){
 	
 	if( version_compare( $db_version, $theme['Version'], '<' ) ){
 		
-		if( $handle = opendir( $current_folder . 'updates' ) ){
+		if( $handle = opendir( $current_folder . 'inc' . DIRECTORY_SEPARATOR . 'updates' ) ){
 			
 			$updates = array();
 			
