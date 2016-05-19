@@ -11,7 +11,7 @@
 function bop_null_requirements_error(){
 	?>
 	<div class="notice notice-error">
-		<p><?php _e( 'Error: This theme requires WordPress v4.4 or higher (current: ' . $GLOBALS['wp_version'] . ') and PHP v5.6 or higher (current: ' . phpversion() . '). You must update or this theme will behave very erratically or just straight-up break', 'bop-null' ); ?></p>
+		<p><?php printf( __( 'Error: This theme requires WordPress v4.4 or higher (current: %s) and PHP v5.6 or higher (current: %s). You must update or this theme will behave very erratically or just straight-up break', 'bop-null' ), $GLOBALS['wp_version'], phpversion() ); ?></p>
 	</div>
 	<?php
 }
