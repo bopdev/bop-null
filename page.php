@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Default Template
+ * 
  *
  * @package Bop Null
  * @since 0.1.0
@@ -12,7 +12,7 @@ get_header(); ?>
 		<?php while( have_posts() ): the_post() ?>
 			<article>
 				<header>
-					<?php the_post_thumbnail() ?>
+					<?php the_post_thumbnail('full', array('class' => 'img-fluid', 'data-object-fit' => 'cover')); ?>
 					<h1><?php the_title() ?></h1>
 				</header>
 				<section>
