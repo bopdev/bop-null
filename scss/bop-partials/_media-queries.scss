@@ -1,0 +1,21 @@
+@include media-breakpoint-up(xs) {
+
+}
+@include media-breakpoint-up(sm) {
+
+}
+@include media-breakpoint-up(md) {
+
+}
+@include media-breakpoint-up(lg) {
+    // Navbar
+
+    .nav-tabs .nav-item {
+        float: left;
+        text-align:left;
+    }
+
+}
+@include media-breakpoint-up(xl) {
+
+}

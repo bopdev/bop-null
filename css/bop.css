@@ -7106,4 +7106,18 @@ a.bg-danger:focus, a.bg-danger:hover {
   }
 }
 
+/* line 3, ../scss/bop-partials/_header.scss */
+.nav-tabs .nav-item {
+  float: none;
+  text-align: center;
+}
+
+@media (min-width: 992px) {
+  /* line 13, ../scss/bop-partials/_media-queries.scss */
+  .nav-tabs .nav-item {
+    float: left;
+    text-align: left;
+  }
+}
+
 /*# sourceMappingURL=bop.css.map */

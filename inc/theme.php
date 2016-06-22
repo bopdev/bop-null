@@ -1,10 +1,10 @@
-<?php 
+<?php
 /**
  * The customisable file (like functions.php in other themes). Below are simply suggestions.
  */
 
 add_action( 'after_setup_theme', function(){
-	
+
 	/*
 	 * Let WordPress manage the document title.
 	 * By adding theme support, we declare that this theme does not use a
@@ -12,41 +12,41 @@ add_action( 'after_setup_theme', function(){
 	 * provide it for us.
 	 */
 	add_theme_support( 'title-tag' );
-	
-	
-	/* 
+
+
+	/*
 	 * Add support for ancillary WordPress parts
-	 * 
+	 *
 	 * @link http://codex.wordpress.org/Function_Reference/add_theme_support
 	 */
-	
+
 	/*
 	 * Enable support for Post Thumbnails on posts and pages.
 	 */
 	add_theme_support( 'post-thumbnails' );
-	
+
 	/*
 	 * Switch default core markup for HTML5.
 	 */
 	add_theme_support( 'html5' );
-	
-	
+
+
 	/*
 	 * Register menus
 	 */
 	register_nav_menus( array(
 		'primary' => __( 'Primary Menu', 'bop-null' ),
-		//'social'  => __( 'Social Links Menu', 'bop-null' ),
+		'footer'  => __( 'Footer Menu', 'bop-null' ),
 	) );
-	
-	
+
+
 	/*
 	 * This theme styles the visual editor to resemble the theme style,
 	 * specifically font, colors, icons, and column width.
 	 */
 	add_editor_style( array( 'css/editor-style.css' ) );
-	
-	
+
+
 	/*
 	 * Add image sizes
 	 */
@@ -57,7 +57,7 @@ add_action( 'after_setup_theme', function(){
 	//add_image_size( 'md', 62 * $fontsize );
 	add_image_size( 'lg', 75 * $fontsize );
 	add_image_size( 'xl', 100 * $fontsize );
-	 
+
 } );
 
 
@@ -97,7 +97,7 @@ add_action( 'wp_head', function() {
  * Register and enqueue styles and scripts
  */
 add_action( 'wp_enqueue_scripts', function(){
-	
+
 	$jses = array(
 		'modernizr'=>array(
 			'src'=>bopdev( get_template_directory_uri() . '/js/modernizr.js', get_template_directory_uri() . '/js/modernizr.js' ),
@@ -117,6 +117,12 @@ add_action( 'wp_enqueue_scripts', function(){
 			'version'=>'4.0.0-alpha.2',
 			'in_footer'=>true
 		),
+		'object-fit'=>array(
+			'src'=>get_template_directory_uri() . bopdev( '/js/object-fit-polyfill.js', '/js/object-fit-polyfill.js' ),
+			'dep'=>array( 'jquery' ),
+			'version'=>'0.1.0',
+			'in_footer'=>true
+		),
 		'bop'=>array(
 			'src'=>get_template_directory_uri() . bopdev( '/js/bop.js', '/js/bop.min.js' ),
 			'dep'=>array( 'jquery' ),
@@ -124,26 +130,27 @@ add_action( 'wp_enqueue_scripts', function(){
 			'in_footer'=>true
 		)
 	);
-	
+
 	//register scripts
 	foreach( $jses as $id=>$js ){
 		wp_register_script( $id, $js['src'], $js['dep'], $js['version'], $js['in_footer'] );
 	}
-	
+
 	//enqueue scripts
 	wp_enqueue_script( 'modernizr' );
 	wp_enqueue_script( 'bootstrap' );
+	wp_enqueue_script( 'object-fit' );
 	wp_enqueue_script( 'bop' );
-	
-	
-	
+
+
+
 	$csses = array(
-		/*'bootstrap'=>array(
-			'src'=>'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css',
+		'font-awesome'=>array(
+			'src'=>'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css',
 			'dep'=>array(),
-			'version'=>'4.0.0-alpha.2',
+			'version'=>'4.6.1',
 			'media'=>'all'
-		),*/
+		),
 		'bop'=>array(
 			'src'=>get_template_directory_uri() . '/css/bop.css',
 			'dep'=>array(),
@@ -151,24 +158,25 @@ add_action( 'wp_enqueue_scripts', function(){
 			'media'=>'all'
 		)
 	);
-	
+
 	//register styles
 	foreach( $csses as $id=>$css ){
 		wp_register_style( $id, $css['src'], $css['dep'], $css['version'], $css['media'] );
 	}
-	
+
 	//enqueue styles
+	wp_enqueue_style( 'font-awesome' );
 	wp_enqueue_style( 'bop' );
-	
+
 } );
 
 
 /**
  * Add custom image sizes attribute to enhance responsive image functionality
  * for post thumbnails. This should be tailored to design
- * 
+ *
  * CHANGE ME
- * 
+ *
  * @since Bop Null 1.0
  *
  * @param array $attr Attributes for the image markup.
@@ -192,6 +200,30 @@ add_filter( 'wp_get_attachment_image_attributes', function( $attr, $attachment, 
 	}
 	return $attr;
 }, 10 , 3 );
+
+
+// Add dynamic copyright
+function comicpress_copyright() {
+	global $wpdb;
+	$copyright_dates = $wpdb->get_results("
+	SELECT
+	YEAR(min(post_date_gmt)) AS firstdate,
+	YEAR(max(post_date_gmt)) AS lastdate
+	FROM
+	$wpdb->posts
+	WHERE
+	post_status = 'publish'
+	");
+	$output = '';
+	if($copyright_dates) {
+		$copyright = "&copy; " . $copyright_dates[0]->firstdate;
+	if($copyright_dates[0]->firstdate != $copyright_dates[0]->lastdate) {
+		$copyright .= '-' . $copyright_dates[0]->lastdate;
+	}
+	$output = $copyright;
+	}
+return $output;
+}
 
 
 //Further files
