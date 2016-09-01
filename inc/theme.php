@@ -106,16 +106,24 @@ add_action( 'wp_enqueue_scripts', function(){
 			'in_footer'=>true
 		),
 		'tether'=>array(
-			'src'=>'https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js',
+			'src'=>'https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.4/js/tether.min.js',
 			'dep'=>array( 'jquery' ),
-			'version'=>'1.2.0',
-			'in_footer'=>true
+			'version'=>'1.3.4',
+			'in_footer'=>true,
+      'attrs'=>array(
+        'integrity'=>'sha256-v/M59kEtmKG0pvkYa48qjqdAOwoDRwjbRrkyCD/gFC4=',
+        'crossorigin'=>'anonymous'
+      )
 		),
 		'bootstrap'=>array(
-			'src'=>'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js',
+			'src'=>'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/js/bootstrap.min.js',
 			'dep'=>array( 'jquery', 'tether' ),
-			'version'=>'4.0.0-alpha.2',
-			'in_footer'=>true
+			'version'=>'4.0.0-alpha.3',
+			'in_footer'=>true,
+      'attrs'=>array(
+        'integrity'=>'sha384-ux8v3A6CPtOTqOzMKiuo3d/DomGaaClxFYdCu2HPMBEkf6x2xiDyJ7gkXU0MWwaD',
+        'crossorigin'=>'anonymous'
+      )
 		),
 		'bop'=>array(
 			'src'=>get_template_directory_uri() . bopdev( '/js/bop.js', '/js/bop.min.js' ),
@@ -128,6 +136,8 @@ add_action( 'wp_enqueue_scripts', function(){
 	//register scripts
 	foreach( $jses as $id=>$js ){
 		wp_register_script( $id, $js['src'], $js['dep'], $js['version'], $js['in_footer'] );
+    if( isset( $js['attrs'] ) )
+      bop_null_register_script_attributes( $id, $js['attrs'] );
 	}
 	
 	//enqueue scripts
@@ -136,13 +146,28 @@ add_action( 'wp_enqueue_scripts', function(){
 	wp_enqueue_script( 'bop' );
 	
 	
-	
 	$csses = array(
-		/*'bootstrap'=>array(
-			'src'=>'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css',
+		'font-awesome'=>array(
+			'src'=>'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css',
 			'dep'=>array(),
-			'version'=>'4.0.0-alpha.2',
-			'media'=>'all'
+			'version'=>'4.6.3',
+			'media'=>'all',
+      'attrs'=>array(
+        'rel'=>'stylesheet',
+        'integrity'=>'sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1',
+        'crossorigin'=>'anonymous'
+      )
+		),
+    /*'bootstrap'=>array(
+			'src'=>'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css',
+			'dep'=>array(),
+			'version'=>'4.0.0-alpha.3',
+			'media'=>'all',
+      'attrs'=>array(
+        'rel'=>'stylesheet',
+        'integrity'=>'sha384-MIwDKRSSImVFAZCVLtU0LMDdON6KVCrZHyVQQj6e8wIEJkW4tvwqXrbMIya1vriY',
+        'crossorigin'=>'anonymous'
+      )
 		),*/
 		'bop'=>array(
 			'src'=>get_template_directory_uri() . '/css/bop.css',
@@ -155,6 +180,8 @@ add_action( 'wp_enqueue_scripts', function(){
 	//register styles
 	foreach( $csses as $id=>$css ){
 		wp_register_style( $id, $css['src'], $css['dep'], $css['version'], $css['media'] );
+    if( isset( $css['attrs'] ) )
+      bop_null_register_style_attributes( $id, $css['attrs'] );
 	}
 	
 	//enqueue styles

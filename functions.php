@@ -4,19 +4,19 @@
  */
 
 /**
- * Requires: > PHP 5.6, > WordPress 4.4.
+ * Requires: > PHP 5.6, > WordPress 4.6.
  */
 
 //This needs to be a declared function as PHP 5.2 and lower do not allow for anon fns.
 function bop_null_requirements_error(){
 	?>
 	<div class="notice notice-error">
-		<p><?php printf( __( 'Error: This theme requires WordPress v4.4 or higher (current: %s) and PHP v5.6 or higher (current: %s). You must update or this theme will behave very erratically or just straight-up break', 'bop-null' ), $GLOBALS['wp_version'], phpversion() ); ?></p>
+		<p><?php printf( __( 'Error: This theme requires WordPress v4.6 or higher (current: %s) and PHP v5.6 or higher (current: %s). You must update or this theme will behave very erratically or just straight-up break', 'bop-null' ), $GLOBALS['wp_version'], phpversion() ); ?></p>
 	</div>
 	<?php
 }
 
-if ( version_compare( $GLOBALS['wp_version'], '4.4.0', '<' ) || version_compare( phpversion(), '5.6.0', '<' ) ) {
+if ( version_compare( $GLOBALS['wp_version'], '4.6' ) < 0 || version_compare( phpversion(), '5.6' ) < 0 ) {
 	
 	//throw error and end theme declarations and processes.
 	add_action( 'admin_notices', 'bop_null_requirements_error' );
